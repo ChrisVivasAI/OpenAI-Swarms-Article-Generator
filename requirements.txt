@@ -1,8 +1,10 @@
 openai==1.52.0
 supabase==2.10.0
 python-dotenv==1.0.1
-swarm==0.0.2
 pytest==6.2.5
 requests==2.32.3
 httpx==0.27.2
 websockets>=11,<14
+streamlit
+google-search-results
+git+https://github.com/openai/swarm.git
