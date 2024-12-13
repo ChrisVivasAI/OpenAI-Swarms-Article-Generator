@@ -22,16 +22,16 @@ def clean_json_response(raw_response):
             raw_response = raw_response[4:].strip()  # Remove 'json' label if present
     return raw_response
 
-def main():
+def main(topic):
     try:
         # Step 1: Ideation Agent
-        logger.info("Starting conversation with Ideation Agent...")
+        logger.info(f"Starting conversation with Ideation Agent for topic: {topic}...")
         client = Swarm()
         ideation_response = client.run(
             agent=ideation_agent,
             messages=[
-                {"role": "user", "content": "I need help coming up with an idea for an article about AI."},
-                {"role": "user", "content": "Let's focus on content creation using AI."},
+                {"role": "user", "content": f"I need help coming up with an idea for an article about {topic}."},
+                {"role": "user", "content": "Please focus on providing valuable insights and practical applications."},
                 {"role": "user", "content": "Can you suggest one refined idea in JSON format?"}
             ]
         )

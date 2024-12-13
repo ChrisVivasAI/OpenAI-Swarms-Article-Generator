@@ -71,6 +71,13 @@ def initialize_page():
     
     Each stage utilizes embedding technology to maintain semantic understanding and enable future content retrieval.
     """)
+    
+    # Add topic input field
+    topic = st.text_input("🎯 Enter your article topic:", 
+                         placeholder="e.g., Artificial Intelligence in Healthcare",
+                         help="Enter a topic for your article. Be as specific as you'd like.")
+    
+    return topic
 
 def create_status_containers():
     # Create three columns for the stages
@@ -167,7 +174,7 @@ def display_article(article_data):
                 mime="text/html"
             )
 
-def run_generation_pipeline():
+def run_generation_pipeline(topic):
     # Create expandable section for logs, initially expanded
     logs_expander = st.expander("View Detailed Logs", expanded=True)
     
@@ -189,7 +196,7 @@ def run_generation_pipeline():
         # Capture stdout and run the main process
         buffer = io.StringIO()
         with redirect_stdout(buffer):
-            article_data = main.main()  # Now captures the returned article data
+            article_data = main.main(topic)  # Now captures the returned article data
         
         # Get the captured output
         output = buffer.getvalue()
@@ -212,13 +219,17 @@ def run_generation_pipeline():
         logger.removeHandler(handler)
 
 def main_ui():
-    initialize_page()
+    topic = initialize_page()
     create_status_containers()
     
     # Add start button
     if st.button("🚀 Start Generation", use_container_width=True):
+        if not topic:
+            st.error("Please enter a topic before starting generation.")
+            return
+            
         with st.spinner("Initializing AI Pipeline..."):
-            run_generation_pipeline()
+            run_generation_pipeline(topic)
 
 if __name__ == "__main__":
     main_ui()
