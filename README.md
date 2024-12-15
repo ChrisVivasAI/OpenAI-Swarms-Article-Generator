@@ -31,6 +31,7 @@ This project is an intelligent article creation system built using OpenAI's Swar
 - Implements SerpAPI for research capabilities
 
 ## Database Schema
+![Database](/database.png)
 
 ### Key Components
 Referenced from codebase:
